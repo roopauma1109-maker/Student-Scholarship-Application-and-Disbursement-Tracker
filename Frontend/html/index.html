@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Student Scholarship Tracker</h1>
+
+        <div class="controls">
+
+            <input
+                type="text"
+                id="search"
+                placeholder="Search student..."
+            >
+
+            <select id="statusFilter">
+                <option value="">All Status</option>
+                <option>Submitted</option>
+                <option>Verified</option>
+                <option>Approved</option>
+                <option>Rejected</option>
+            </select>
+
+        </div>
+
+        <p id="count"></p>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student ID</th>
+                    <th>Scholarship ID</th>
+                    <th>Status</th>
+                    <th>Applied Date</th>
+                </tr>
+            </thead>
+
+            <tbody id="tableBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
