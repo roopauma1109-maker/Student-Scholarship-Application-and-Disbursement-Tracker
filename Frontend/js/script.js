@@ -3,27 +3,36 @@ const API = "http://127.0.0.1:8000";
 let applications = [];
 
 async function loadApplications() {
+    try {
+        const response = await fetch(`${API}/applications`);
 
-    const response = await fetch(`${API}/applications`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch data");
+        }
 
-    applications = await response.json();
+        applications = await response.json();
+        displayData(applications);
 
-    displayData(applications);
+    } catch (error) {
+        console.error(error);
+        alert("Unable to connect to the backend.");
+    }
 }
 
-function displayData(data){
+function displayData(data) {
 
     const table = document.getElementById("tableBody");
-
     table.innerHTML = "";
 
-    data.forEach(app=>{
+    data.forEach(app => {
 
         table.innerHTML += `
         <tr>
             <td>${app.id}</td>
-            <td>${app.student_id}</td>
-            <td>${app.scholarship_id}</td>
+            <td>${app.student.name}</td>
+            <td>${app.student.department}</td>
+            <td>${app.scholarship.name}</td>
+            <td>₹${app.scholarship.amount}</td>
             <td>${app.status}</td>
             <td>${app.applied_date}</td>
         </tr>
@@ -31,29 +40,25 @@ function displayData(data){
 
     });
 
-    document.getElementById("count").innerHTML =
+    document.getElementById("count").textContent =
         `Showing ${data.length} record(s)`;
 }
 
 document.getElementById("search").addEventListener("input", filterData);
-
 document.getElementById("statusFilter").addEventListener("change", filterData);
 
-function filterData(){
+function filterData() {
 
-    const search =
-        document.getElementById("search").value.toLowerCase();
+    const search = document.getElementById("search").value.toLowerCase();
+    const status = document.getElementById("statusFilter").value;
 
-    const status =
-        document.getElementById("statusFilter").value;
-
-    const filtered = applications.filter(app=>{
+    const filtered = applications.filter(app => {
 
         const matchSearch =
-            app.student_id.toString().includes(search);
+            app.student.name.toLowerCase().includes(search);
 
         const matchStatus =
-            status==="" || app.status===status;
+            status === "" || app.status === status;
 
         return matchSearch && matchStatus;
 

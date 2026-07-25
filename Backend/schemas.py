@@ -53,6 +53,8 @@ class ApplicationCreate(ApplicationBase):
 
 class Application(ApplicationBase):
     id: int
+    student: Student
+    scholarship: Scholarship
 
     class Config:
         from_attributes = True

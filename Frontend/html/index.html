@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scholarship Tracker</title>
+
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
 
     <div class="container">
@@ -22,10 +24,10 @@
 
             <select id="statusFilter">
                 <option value="">All Status</option>
-                <option>Submitted</option>
-                <option>Verified</option>
-                <option>Approved</option>
-                <option>Rejected</option>
+                <option value="Submitted">Submitted</option>
+                <option value="Verified">Verified</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
             </select>
 
         </div>
@@ -37,22 +39,24 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Student ID</th>
-                    <th>Scholarship ID</th>
+                    <th>Student Name</th>
+                    <th>Department</th>
+                    <th>Scholarship</th>
+                    <th>Amount</th>
                     <th>Status</th>
                     <th>Applied Date</th>
                 </tr>
             </thead>
 
             <tbody id="tableBody">
-
+                <!-- Data will be loaded here -->
             </tbody>
 
         </table>
 
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="../js/script.js"></script>
 
 </body>
 </html>

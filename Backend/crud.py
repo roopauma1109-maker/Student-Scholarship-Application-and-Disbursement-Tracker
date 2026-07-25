@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 import models
 import schemas
 
@@ -47,13 +47,26 @@ def create_application(db: Session, application: schemas.ApplicationCreate):
 
 
 def get_applications(db: Session):
-    return db.query(models.Application).all()
+    return (
+        db.query(models.Application)
+        .options(
+            joinedload(models.Application.student),
+            joinedload(models.Application.scholarship)
+        )
+        .all()
+    )
 
 
 def get_application(db: Session, application_id: int):
-    return db.query(models.Application).filter(
-        models.Application.id == application_id
-    ).first()
+    return (
+        db.query(models.Application)
+        .options(
+            joinedload(models.Application.student),
+            joinedload(models.Application.scholarship)
+        )
+        .filter(models.Application.id == application_id)
+        .first()
+    )
 
 
 def update_application_status(db: Session, application_id: int, status: str):
