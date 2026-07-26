@@ -58,6 +58,19 @@ def get_students(db: Session = Depends(get_db)):
 
 
 # -----------------------------
+# Student Applications API
+# -----------------------------
+
+@app.get("/students/{student_id}/applications",
+         response_model=list[schemas.Application])
+def get_student_applications(
+    student_id: int,
+    db: Session = Depends(get_db)
+):
+    return crud.get_student_applications(db, student_id)
+
+
+# -----------------------------
 # Scholarship APIs
 # -----------------------------
 

@@ -4,6 +4,7 @@ let applications = [];
 
 async function loadApplications() {
     try {
+
         const response = await fetch(`${API}/applications`);
 
         if (!response.ok) {
@@ -12,7 +13,8 @@ async function loadApplications() {
 
         applications = await response.json();
 
-        document.getElementById("total").textContent = applications.length;
+        document.getElementById("total").textContent =
+            applications.length;
 
         document.getElementById("approved").textContent =
             applications.filter(a => a.status === "Approved").length;
@@ -26,8 +28,10 @@ async function loadApplications() {
         displayData(applications);
 
     } catch (error) {
+
         console.error(error);
         alert("Unable to connect to the backend.");
+
     }
 }
 
@@ -36,17 +40,43 @@ function displayData(data) {
     const table = document.getElementById("tableBody");
     table.innerHTML = "";
 
+    // Empty state
+    if (data.length === 0) {
+
+        table.innerHTML = `
+        <tr>
+            <td colspan="8" style="text-align:center;">
+                No applications found
+            </td>
+        </tr>
+        `;
+
+        document.getElementById("count").textContent =
+            "Showing 0 record(s)";
+
+        return;
+    }
+
     data.forEach(app => {
 
         table.innerHTML += `
-        <tr onclick="viewDetails(${app.id})">
+        <tr>
             <td>${app.id}</td>
             <td>${app.student.name}</td>
             <td>${app.student.department}</td>
             <td>${app.scholarship.name}</td>
             <td>₹${app.scholarship.amount}</td>
-            <td>${app.status}</td>
+            <td>
+                <span class="status ${app.status.toLowerCase()}">
+                    ${app.status}
+                </span>
+            </td>
             <td>${app.applied_date}</td>
+            <td>
+                <button onclick="viewDetails(${app.id})">
+                    View
+                </button>
+            </td>
         </tr>
         `;
 
@@ -67,7 +97,9 @@ function filterData() {
     const filtered = applications.filter(app => {
 
         const matchSearch =
-            app.student.name.toLowerCase().includes(search);
+            app.student.name.toLowerCase().includes(search) ||
+            app.student.department.toLowerCase().includes(search) ||
+            app.scholarship.name.toLowerCase().includes(search);
 
         const matchStatus =
             status === "" || app.status === status;
@@ -83,7 +115,8 @@ loadApplications();
 
 async function askAssistant() {
 
-    const question = document.getElementById("question").value;
+    const question =
+        document.getElementById("question").value;
 
     if (question === "") {
         alert("Enter a question");
@@ -106,7 +139,8 @@ async function askAssistant() {
 
     const data = await response.json();
 
-    document.getElementById("answer").innerHTML = data.answer;
+    document.getElementById("answer").innerHTML =
+        data.answer;
 }
 
 function viewDetails(id) {

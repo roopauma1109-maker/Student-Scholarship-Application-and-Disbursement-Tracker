@@ -18,6 +18,19 @@ def get_students(db: Session):
     return db.query(models.Student).all()
 
 
+# NEW FUNCTION
+def get_student_applications(db: Session, student_id: int):
+    return (
+        db.query(models.Application)
+        .options(
+            joinedload(models.Application.student),
+            joinedload(models.Application.scholarship)
+        )
+        .filter(models.Application.student_id == student_id)
+        .all()
+    )
+
+
 # -------------------------------
 # Scholarship CRUD
 # -------------------------------
