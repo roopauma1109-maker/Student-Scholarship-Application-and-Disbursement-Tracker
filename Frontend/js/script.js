@@ -27,7 +27,7 @@ function displayData(data) {
     data.forEach(app => {
 
         table.innerHTML += `
-        <tr>
+        <tr onclick="viewDetails(${app.id})">
             <td>${app.id}</td>
             <td>${app.student.name}</td>
             <td>${app.student.department}</td>
@@ -95,4 +95,8 @@ async function askAssistant() {
     const data = await response.json();
 
     document.getElementById("answer").innerHTML = data.answer;
+}
+
+function viewDetails(id) {
+    window.location.href = `details.html?id=${id}`;
 }

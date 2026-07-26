@@ -78,3 +78,18 @@ button:hover{
     font-weight:bold;
     color:green;
 }
+
+#details{
+    background:white;
+    padding:25px;
+    border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+#details h2{
+    color:#2563eb;
+}
+
+button{
+    border-radius:5px;
+}
