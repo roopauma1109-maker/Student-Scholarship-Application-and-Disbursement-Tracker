@@ -59,8 +59,6 @@ The project is developed using **FastAPI**, **SQLite**, **SQLAlchemy**, **HTML**
 ### Tools
 - VS Code
 - Git & GitHub
-- Postman
-- Live Server
 
 ---
 
