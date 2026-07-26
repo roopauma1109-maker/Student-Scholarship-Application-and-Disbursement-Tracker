@@ -1,9 +1,12 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from pydantic import BaseModel
 
 import models
 import schemas
 import crud
+import assistant
 
 from database import engine, get_db
 
@@ -11,6 +14,28 @@ from database import engine, get_db
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Scholarship Tracker API")
+
+# -----------------------------
+# CORS Configuration
+# -----------------------------
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        "http://127.0.0.1:5501",
+        "http://localhost:5501",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# -----------------------------
+# Request Model for Assistant
+# -----------------------------
+class Question(BaseModel):
+    question: str
 
 
 @app.get("/")
@@ -77,7 +102,11 @@ def get_application(application_id: int, db: Session = Depends(get_db)):
 
 
 @app.put("/applications/{application_id}")
-def update_application(application_id: int, status: str, db: Session = Depends(get_db)):
+def update_application(
+    application_id: int,
+    status: str,
+    db: Session = Depends(get_db)
+):
     application = crud.update_application_status(db, application_id, status)
 
     if application is None:
@@ -94,3 +123,16 @@ def delete_application(application_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Application not found")
 
     return {"message": "Application deleted successfully"}
+
+
+# -----------------------------
+# AI Assistant API
+# -----------------------------
+
+@app.post("/assistant")
+def ask_question(data: Question, db: Session = Depends(get_db)):
+    answer = assistant.get_response(data.question, db)
+    return {
+        "question": data.question,
+        "answer": answer
+    }

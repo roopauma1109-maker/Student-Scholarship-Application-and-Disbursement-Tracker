@@ -50,3 +50,31 @@ tr:hover{
     font-weight:bold;
     margin-bottom:15px;
 }
+
+.assistant{
+    margin-top:30px;
+    display:flex;
+    gap:10px;
+}
+
+.assistant input{
+    flex:1;
+}
+
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+#answer{
+    margin-top:15px;
+    font-weight:bold;
+    color:green;
+}
