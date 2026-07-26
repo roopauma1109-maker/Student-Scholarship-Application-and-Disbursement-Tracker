@@ -2,9 +2,9 @@
 
 ## 📖 Overview
 
-The **Student Scholarship Application and Disbursement Tracker** is a full-stack web application designed to simplify the scholarship application and management process for educational institutions. The system allows students to apply for scholarships online while enabling administrators to manage, verify, approve, and monitor scholarship applications through an intuitive dashboard.
+The **Student Scholarship Application and Disbursement Tracker** is a full-stack web application designed to simplify the scholarship application and disbursement management process for educational institutions. The system allows students to apply for scholarships online while enabling administrators to manage, verify, approve, and monitor scholarship applications through an intuitive dashboard.
 
-The project is developed using **FastAPI**, **SQLite**, **SQLAlchemy**, **HTML**, **CSS**, and **JavaScript**, with an integrated **AI-powered Scholarship Assistant** for answering scholarship-related queries.
+The project is developed using **FastAPI**, **SQLite**, **HTML**, **CSS**, and **JavaScript**, with an integrated **AI-powered Scholarship Assistant** for answering scholarship-related queries.
 
 ---
 
@@ -37,6 +37,14 @@ The project is developed using **FastAPI**, **SQLite**, **SQLAlchemy**, **HTML**
 - Display scholarship information
 - Provide application statistics
 - Assist administrators with quick queries
+
+---
+
+## 🎥 Demo Video
+
+Watch the complete project demonstration:
+
+👉 [Student Scholarship Application and Disbursement Tracker Demo](https://1drv.ms/v/c/3210c19e8afb7730/IQANNWq6Iop7SLPiKhJzbVHiAfTomTo3VgbG9EyQYYDuiqQ?e=LmcmZP)
 
 ---
 
@@ -219,7 +227,7 @@ Activate the virtual environment:
 venv\Scripts\activate
 ```
 
-### Install dependencies
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
