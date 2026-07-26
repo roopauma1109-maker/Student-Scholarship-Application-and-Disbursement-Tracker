@@ -4,7 +4,7 @@ const params = new URLSearchParams(window.location.search);
 
 const id = params.get("id");
 
-async function loadDetails(){
+async function loadDetails() {
 
     const response = await fetch(`${API}/applications/${id}`);
 
@@ -15,7 +15,7 @@ async function loadDetails(){
     const today = new Date();
 
     const days =
-        Math.floor((today-applied)/(1000*60*60*24));
+        Math.floor((today - applied) / (1000 * 60 * 60 * 24));
 
     document.getElementById("details").innerHTML = `
 
@@ -36,6 +36,20 @@ async function loadDetails(){
     <h3>Days Since Applied : ${days}</h3>
 
     `;
+
+    // Fetch application history
+    const historyResponse = await fetch(`${API}/applications/${id}/history`);
+    const history = await historyResponse.json();
+
+    let historyHtml = "<h3>Status History</h3><ul>";
+
+    history.forEach(item => {
+        historyHtml += `<li>${item.status} - ${item.updated_date}</li>`;
+    });
+
+    historyHtml += "</ul>";
+
+    document.getElementById("details").innerHTML += historyHtml;
 
 }
 

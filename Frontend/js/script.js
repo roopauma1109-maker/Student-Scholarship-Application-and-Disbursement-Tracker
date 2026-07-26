@@ -11,6 +11,18 @@ async function loadApplications() {
         }
 
         applications = await response.json();
+
+        document.getElementById("total").textContent = applications.length;
+
+        document.getElementById("approved").textContent =
+            applications.filter(a => a.status === "Approved").length;
+
+        document.getElementById("verified").textContent =
+            applications.filter(a => a.status === "Verified").length;
+
+        document.getElementById("submitted").textContent =
+            applications.filter(a => a.status === "Submitted").length;
+
         displayData(applications);
 
     } catch (error) {

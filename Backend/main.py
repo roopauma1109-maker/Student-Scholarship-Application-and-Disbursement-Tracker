@@ -101,6 +101,18 @@ def get_application(application_id: int, db: Session = Depends(get_db)):
     return application
 
 
+# -----------------------------
+# Application History API
+# -----------------------------
+
+@app.get("/applications/{application_id}/history")
+def application_history(
+    application_id: int,
+    db: Session = Depends(get_db)
+):
+    return crud.get_history(db, application_id)
+
+
 @app.put("/applications/{application_id}")
 def update_application(
     application_id: int,

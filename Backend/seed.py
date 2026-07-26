@@ -1,5 +1,5 @@
 from database import SessionLocal, engine
-from models import Base, Student, Scholarship, Application
+from models import Base, Student, Scholarship, Application, StatusHistory
 
 # Create tables
 Base.metadata.create_all(bind=engine)
@@ -59,6 +59,35 @@ applications = [
 ]
 
 db.add_all(applications)
+db.commit()
+
+# ----------------------------
+# Status History
+# ----------------------------
+
+history = [
+
+    StatusHistory(
+        application_id=1,
+        status="Submitted",
+        updated_date="2026-07-20"
+    ),
+
+    StatusHistory(
+        application_id=2,
+        status="Verified",
+        updated_date="2026-07-18"
+    ),
+
+    StatusHistory(
+        application_id=3,
+        status="Approved",
+        updated_date="2026-07-15"
+    ),
+
+]
+
+db.add_all(history)
 db.commit()
 
 db.close()

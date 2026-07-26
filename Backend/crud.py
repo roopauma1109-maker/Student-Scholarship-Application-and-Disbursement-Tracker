@@ -92,3 +92,15 @@ def delete_application(db: Session, application_id: int):
         db.commit()
 
     return application
+
+
+# -------------------------------
+# Status History CRUD
+# -------------------------------
+
+def get_history(db: Session, application_id: int):
+    return (
+        db.query(models.StatusHistory)
+        .filter(models.StatusHistory.application_id == application_id)
+        .all()
+    )
