@@ -1,18 +1,34 @@
 from sqlalchemy.orm import Session
 import models
+import re
 
 
 def get_response(question: str, db: Session):
 
+    # Normalize input
     question = question.lower().strip()
+    question = re.sub(r"[^\w\s]", "", question)
 
-    # Total applications
-    if "total" in question or "applications" in question:
-        count = db.query(models.Application).count()
-        return f"Total applications: {count}"
+    # -------------------------
+    # Rejected Applications
+    # -------------------------
+    if (
+        "rejected" in question
+        or "reject" in question
+    ):
+        count = (
+            db.query(models.Application)
+            .filter(models.Application.status == "Rejected")
+            .count()
+        )
+        return f"Rejected applications: {count}"
 
-    # Approved applications
-    elif "approved" in question:
+    # -------------------------
+    # Approved Applications
+    # -------------------------
+    elif (
+        "approved" in question
+    ):
         count = (
             db.query(models.Application)
             .filter(models.Application.status == "Approved")
@@ -20,8 +36,12 @@ def get_response(question: str, db: Session):
         )
         return f"Approved applications: {count}"
 
-    # Verified applications
-    elif "verified" in question:
+    # -------------------------
+    # Verified Applications
+    # -------------------------
+    elif (
+        "verified" in question
+    ):
         count = (
             db.query(models.Application)
             .filter(models.Application.status == "Verified")
@@ -29,8 +49,12 @@ def get_response(question: str, db: Session):
         )
         return f"Verified applications: {count}"
 
-    # Submitted applications
-    elif "submitted" in question:
+    # -------------------------
+    # Submitted Applications
+    # -------------------------
+    elif (
+        "submitted" in question
+    ):
         count = (
             db.query(models.Application)
             .filter(models.Application.status == "Submitted")
@@ -38,8 +62,27 @@ def get_response(question: str, db: Session):
         )
         return f"Submitted applications: {count}"
 
+    # -------------------------
+    # Total Applications
+    # -------------------------
+    elif (
+        "total applications" in question
+        or "how many applications" in question
+        or "application count" in question
+        or "total number of applications" in question
+        or question == "total"
+    ):
+        count = db.query(models.Application).count()
+        return f"Total applications: {count}"
+
+    # -------------------------
     # Student Status
-    elif "status" in question:
+    # -------------------------
+    elif (
+        "status" in question
+        or "track" in question
+        or "application status" in question
+    ):
 
         students = db.query(models.Student).all()
 
@@ -58,5 +101,4 @@ def get_response(question: str, db: Session):
 
         return "Student not found."
 
-    else:
-        return "Sorry, I don't understand that question."
+    return "Sorry, I don't understand that question."
