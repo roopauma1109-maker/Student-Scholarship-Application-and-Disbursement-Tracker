@@ -10,85 +10,98 @@
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <h1>🎓 Student Scholarship Application Tracker</h1>
+    <h1>🎓 Student Scholarship Application Tracker</h1>
 
-        <div class="cards">
+    <!-- Dashboard Cards -->
+    <div class="cards">
 
-            <div class="card">
-                <h3>Total</h3>
-                <h2 id="total">0</h2>
-            </div>
-
-            <div class="card">
-                <h3>Approved</h3>
-                <h2 id="approved">0</h2>
-            </div>
-
-            <div class="card">
-                <h3>Verified</h3>
-                <h2 id="verified">0</h2>
-            </div>
-
-            <div class="card">
-                <h3>Submitted</h3>
-                <h2 id="submitted">0</h2>
-            </div>
-
+        <div class="card">
+            <h3>Total</h3>
+            <h2 id="total">0</h2>
         </div>
 
-        <div class="controls">
-
-            <input
-                type="text"
-                id="search"
-                placeholder="Search student..."
-            >
-
-            <select id="statusFilter">
-                <option value="">All Status</option>
-                <option value="Submitted">Submitted</option>
-                <option value="Verified">Verified</option>
-                <option value="Approved">Approved</option>
-                <option value="Rejected">Rejected</option>
-            </select>
-
+        <div class="card">
+            <h3>Approved</h3>
+            <h2 id="approved">0</h2>
         </div>
 
-        <p id="count"></p>
+        <div class="card">
+            <h3>Verified</h3>
+            <h2 id="verified">0</h2>
+        </div>
 
-        <table>
+        <div class="card">
+            <h3>Submitted</h3>
+            <h2 id="submitted">0</h2>
+        </div>
 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Student Name</th>
-                    <th>Department</th>
-                    <th>Scholarship</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Applied Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+    </div>
 
-            <tbody id="tableBody">
-                <!-- Data will be loaded here -->
-            </tbody>
+    <!-- Search & Filter -->
+    <div class="controls">
 
-        </table>
+        <input
+            type="text"
+            id="search"
+            placeholder="🔍 Search student..."
+        >
 
-        <hr>
+        <select id="statusFilter">
+            <option value="">All Status</option>
+            <option value="Submitted">Submitted</option>
+            <option value="Verified">Verified</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+        </select>
 
-        <h2>Scholarship Assistant</h2>
+    </div>
 
-        <div class="assistant">
+    <p id="count"></p>
+
+    <!-- Applications Table -->
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>Department</th>
+                <th>Scholarship</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Applied Date</th>
+                <th>View</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody id="tableBody">
+            <!-- Data Loaded by JavaScript -->
+        </tbody>
+
+    </table>
+
+    <!-- Scholarship Assistant -->
+
+    <div class="assistant-card">
+
+        <div class="assistant-header">
+            <div class="assistant-icon">🤖</div>
+
+            <div>
+                <h2>Scholarship Assistant</h2>
+                <p>Ask questions about applications and scholarship statistics.</p>
+            </div>
+        </div>
+
+        <div class="assistant-input">
 
             <input
                 type="text"
                 id="question"
-                placeholder="Ask a question..."
+                placeholder="Example: How many approved applications?"
             >
 
             <button onclick="askAssistant()">
@@ -97,16 +110,25 @@
 
         </div>
 
-        <p id="answer"></p>
+        <div class="assistant-answer">
+
+            <h4>Assistant Response</h4>
+
+            <p id="answer">
+                Your answer will appear here...
+            </p>
+
+        </div>
 
     </div>
 
-    <script src="../js/script.js"></script>
+</div>
+
+<script src="../js/script.js"></script>
+
+<footer>
+    Scholarship Tracker © 2026
+</footer>
 
 </body>
-<footer>
-
-Scholarship Tracker © 2026
-
-</footer>
 </html>

@@ -45,7 +45,7 @@ function displayData(data) {
 
         table.innerHTML = `
         <tr>
-            <td colspan="8" style="text-align:center;">
+            <td colspan="9" style="text-align:center;">
                 No applications found
             </td>
         </tr>
@@ -66,17 +66,36 @@ function displayData(data) {
             <td>${app.student.department}</td>
             <td>${app.scholarship.name}</td>
             <td>₹${app.scholarship.amount}</td>
+
             <td>
                 <span class="status ${app.status.toLowerCase()}">
                     ${app.status}
                 </span>
             </td>
+
             <td>${app.applied_date}</td>
+
             <td>
                 <button onclick="viewDetails(${app.id})">
                     View
                 </button>
             </td>
+
+            <td>
+                <button
+                    onclick="deleteApplication(${app.id})"
+                    style="
+                        background:red;
+                        color:white;
+                        border:none;
+                        padding:5px 10px;
+                        border-radius:5px;
+                        cursor:pointer;
+                    ">
+                    Delete
+                </button>
+            </td>
+
         </tr>
         `;
 
@@ -123,26 +142,70 @@ async function askAssistant() {
         return;
     }
 
-    const response = await fetch(`${API}/assistant`, {
+    try {
 
-        method: "POST",
+        const response = await fetch(`${API}/assistant`, {
 
-        headers: {
-            "Content-Type": "application/json"
-        },
+            method: "POST",
 
-        body: JSON.stringify({
-            question: question
-        })
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-    });
+            body: JSON.stringify({
+                question: question
+            })
 
-    const data = await response.json();
+        });
 
-    document.getElementById("answer").innerHTML =
-        data.answer;
+        const data = await response.json();
+
+        document.getElementById("answer").innerHTML =
+            data.answer;
+
+    } catch (error) {
+
+        console.error(error);
+        alert("Unable to contact the assistant.");
+
+    }
 }
 
 function viewDetails(id) {
     window.location.href = `details.html?id=${id}`;
+}
+
+async function deleteApplication(id) {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this application?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(`${API}/applications/${id}`, {
+            method: "DELETE"
+        });
+
+        if (!response.ok) {
+            throw new Error("Delete failed");
+        }
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        // Reload the applications after deletion
+        loadApplications();
+
+    } catch (error) {
+
+        console.error(error);
+        alert("Unable to delete application.");
+
+    }
 }
